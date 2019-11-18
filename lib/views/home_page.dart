@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
       child: ListView.builder(
         padding: EdgeInsets.all(8.0),
         reverse: true,
-        itemBuilder: (_, int index) => ChatMessageListItem(chatMessage: _messageList[index]),
+        itemBuilder: (_, int index) =>
+            ChatMessageListItem(chatMessage: _messageList[index]),
         itemCount: _messageList.length,
       ),
     );
@@ -54,8 +55,10 @@ class _HomePageState extends State<HomePage> {
         type: ChatMessageType.received);
 
     // Faz a autenticação com o serviço, envia a mensagem e recebe uma resposta da Intent
-    AuthGoogle authGoogle = await AuthGoogle(fileJson: "assets/credentials.json").build();
-    Dialogflow dialogflow = Dialogflow(authGoogle: authGoogle, language: "pt-BR");
+    AuthGoogle authGoogle =
+        await AuthGoogle(fileJson: "assets/credentials.json").build();
+    Dialogflow dialogflow =
+        Dialogflow(authGoogle: authGoogle, language: "pt-BR");
     AIResponse response = await dialogflow.detectIntent(query);
 
     // remove a mensagem temporária
@@ -78,15 +81,14 @@ class _HomePageState extends State<HomePage> {
 
   // Adiciona uma mensagem na lista de mensagens
   void _addMessage({String name, String text, ChatMessageType type}) {
-    var message = ChatMessage(
-        text: text, name: name, type: type);
+    var message = ChatMessage(text: text, name: name, type: type);
     setState(() {
       _messageList.insert(0, message);
     });
 
     if (type == ChatMessageType.sent) {
       // Envia a mensagem para o chatbot e aguarda sua resposta
-      _dialogFlowRequest(query: message.text);  
+      _dialogFlowRequest(query: message.text);
     }
   }
 
@@ -95,9 +97,18 @@ class _HomePageState extends State<HomePage> {
     return new Flexible(
       child: new TextField(
         controller: _controllerText,
-        decoration: new InputDecoration.collapsed(
-          hintText: "Enviar mensagem",
-        ),
+        decoration: new InputDecoration(
+            // DESAFIO 3 - Fazer o TextField de envio de mensagens ser igual ao do Whatsapp (borda redonda)
+            border: new OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(50.0),
+              
+              ),
+            ),
+            filled: true,
+            hintStyle: new TextStyle(color: Colors.grey[800]),
+            hintText: "Enviar mensagem",
+            fillColor: Colors.white70),
       ),
     );
   }
