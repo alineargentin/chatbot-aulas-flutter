@@ -1,5 +1,7 @@
 # Chatbot
 
+// GRUPO: ALINE ROBERTA ARGENTIN - FELIPE AMBROSINI/ DANTRICIA MARIA / LUCAS PIRES
+
 Aplicativo de chatbot
 
 Tutorial de criação deste app: http://bit.ly/2mDfTBB
